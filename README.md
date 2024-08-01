@@ -7,7 +7,7 @@ This project demonstrates how to interact with Azure Key Vault and Microsoft Gra
 This project demonstrates how to interact with Azure Key Vault and Microsoft Graph to manage secrets and application registration client secrets.
 
 ## Architecture
-![Architecture Diagram](\pictures\architecture.jpg)
+![Architecture Diagram](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/architecture.jpg)
 
 ## Overview
 This program is designed to manage Entra Application Registration secrets using the Azure KeyVault service. It first retrieves the application's credentials, then identifies and deletes the oldest password from the application's credentials using Microsoft's Graph API. After deleting the old password, it generates a new secret for the application and adds this newly created secret to the Azure KeyVault. This helps ensure that the application's secrets are always up-to-date and securely stored, providing a robust solution for managing application secrets in Azure.
