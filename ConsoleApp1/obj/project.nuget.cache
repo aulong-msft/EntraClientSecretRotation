@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "krT9N/cYoDJCe6OsDQZZM8ZGK6ci+eL9hWkb4/vP9FEAmd/QiAOyCVYXx7Ey8F0TQevdJAh5ifUDOYnGds/+Gw==",
+  "dgSpecHash": "1kHh57fuLjMmirODJ/UGy2KxWulhYHglXW21YAHKOg5BtzTWSzKY+eszFnfmzh9kwm9XQuOPHw5ewDV92jqyDw==",
   "success": true,
-  "projectFilePath": "c:\\Users\\aulong\\kvestcode\\ConsoleApp1\\ConsoleApp1.csproj",
+  "projectFilePath": "c:\\Users\\aulong\\GitHub_Projects\\EntraClientSecretRotation\\ConsoleApp1\\ConsoleApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aulong\\.nuget\\packages\\azure.core\\1.40.0\\azure.core.1.40.0.nupkg.sha512",
     "C:\\Users\\aulong\\.nuget\\packages\\azure.identity\\1.12.0\\azure.identity.1.12.0.nupkg.sha512",

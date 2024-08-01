@@ -8,21 +8,23 @@ using Microsoft.Identity.Client;
 using Microsoft.Graph.Drives.Item.Items.Item.Workbook.Functions.Vdb;
 using Microsoft.Graph.Applications.Item.RemovePassword;
 
+
 class Program  
 {  
-    private static readonly string keyVaultUrl = "https://keyvaultforentra.vault.azure.net/";   
-    private static readonly string objectId = "a726f66f-1002-421c-9845-440054f82ec7";
-    private static readonly string entraSecretName = "entraSecret";
+    // please add these ites to a secure location
+    private static string objectId = "ENTER_YOUR_OBJECT_ID_HERE";
+    private static string entraSecretName = "ENTER_THE_NAME_FOR_SECRET_HERE";
+    private static string keyVaultUrl = "https://ENTER_YOUR_KEYVAULT_NAME.vault.azure.net/";
     private static string newClientSecret = string.Empty;
 
     static async Task Main(string[] args)  
     {  
+        
         var credential = GetCredential();
         Console.WriteLine($"Credential: {credential}");
         Console.WriteLine($"Credential Debug: {credential.GetToken(new Azure.Core.TokenRequestContext(new string[] { "https://vault.azure.net/.default" })).Token}");
-
+    
         var graphClient = new GraphServiceClient(credential);
-        await DeleteOldestPassword(graphClient);
         await CreateNewSecret(graphClient);
         await AddSecretToKeyVault(credential);
     }
@@ -47,43 +49,6 @@ class Program
             ExcludeInteractiveBrowserCredential = true,  
         };  
         return new DefaultAzureCredential(options);  
-    }
-
-    private static async Task DeleteOldestPassword(GraphServiceClient graphClient)
-    {
-        try  
-        {  
-            var passwordCredentials = await graphClient.Applications[objectId].GetAsync();  
-            if (passwordCredentials == null || passwordCredentials.PasswordCredentials == null || passwordCredentials.PasswordCredentials.Count == 0)  
-            {  
-                Console.WriteLine("No password credentials found.");  
-                return;  
-            }
-            var soonestExpiringCredential = passwordCredentials.PasswordCredentials.OrderBy(pc => pc.EndDateTime).FirstOrDefault();  
-        
-            if (soonestExpiringCredential != null)  
-            {  
-                Console.WriteLine($"Deleting Secret ID: {soonestExpiringCredential.KeyId}");  
-                Console.WriteLine($"Display Name: {soonestExpiringCredential.DisplayName}");  
-                Console.WriteLine($"End Date: {soonestExpiringCredential.EndDateTime}");  
-        
-                var requestBody = new RemovePasswordPostRequestBody  
-                {  
-                    KeyId = soonestExpiringCredential.KeyId.Value,  
-                };  
-                
-                await graphClient.Applications[objectId].RemovePassword.PostAsync(requestBody);  
-                Console.WriteLine("Secret deleted successfully.");  
-            }  
-            else  
-            {  
-                Console.WriteLine("No password credentials found.");  
-            }  
-        }  
-        catch (Exception ex)  
-        {  
-            Console.WriteLine($"Error retrieving or deleting secrets: {ex.Message}");  
-        }  
     }
 
     private static async Task CreateNewSecret(GraphServiceClient graphClient)
