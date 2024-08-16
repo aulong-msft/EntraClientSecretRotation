@@ -37,8 +37,7 @@ namespace Company.Function
             _logger.LogInformation(input.EventType);
             _logger.LogInformation(JsonSerializer.Serialize(input.Data));
 
-            // Retrieve the environment variables
-            
+            // Retrieve the environment variables from App Service Configuration
             string secretName = Environment.GetEnvironmentVariable("SecretName");
             string objectId = Environment.GetEnvironmentVariable("EntraObjectID");
             string keyVaultUri = Environment.GetEnvironmentVariable("KeyVaultURI");
@@ -59,7 +58,8 @@ namespace Company.Function
                 throw new InvalidOperationException("KeyVaultUri environment variable is not set.");
             }
 
-            if (input.EventType == "Microsoft.KeyVault.SecretNearExpiry" || input.EventType == "Microsoft.KeyVault.SecretExpired" || input.EventType == "Microsoft.KeyVault.SecretNewVersionCreated")
+            // Once the EventGrid trigger is fired, check if the event type is SecretNearExpiry or SecretExpired
+            if (input.EventType == "Microsoft.KeyVault.SecretNearExpiry" || input.EventType == "Microsoft.KeyVault.SecretExpired")
             {
                 try
                 {
@@ -81,6 +81,7 @@ namespace Company.Function
 
         private async Task CreateNewSecret(GraphServiceClient graphClient, string secretName, string objectId)
         {
+            // Create a new secret for the app registration
             var requestBody = new AddPasswordPostRequestBody
             {
                 PasswordCredential = new PasswordCredential
@@ -110,8 +111,9 @@ namespace Company.Function
 
         private async Task AddSecretToKeyVault(DefaultAzureCredential credential, string keyVaultUri)
         {
+            // Add the new secret to the Key Vault
             var secretClient = new SecretClient(new Uri(keyVaultUri), credential);
-
+            
             var updateSecret = new KeyVaultSecret("entraSecret", newClientSecret)
             {
                 Properties = { ExpiresOn = DateTimeOffset.UtcNow.AddMonths(6) }
