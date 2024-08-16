@@ -34,14 +34,20 @@ Rotating client secrets for an Entra application registration can present a sign
 ### Key Vault Secrets Versions Lifecycle
 In Azure Key Vault, both current and older versions of secrets remain active and accessible until they either expire or are explicitly disabled. This means that any version of a secret can be used by your applications as long as it is within its validity period and hasn’t been disabled. This approach ensures that you can seamlessly transition between different versions of a secret without disrupting your applications, providing flexibility and continuity in managing sensitive information.
 
-### Retrieve multiple versions from Key Vault to reduce downtime
+This program does not delete or disable secrets or older versions of secrets in the Key Vault, management of this should be considered.
 
-To implement the retrieval of the two latest versions of a secret from Azure KeyVault, you will need to utilize the `list_properties_of_secret_versions` method provided by the Azure SDK. This method returns an iterator over the versions of a secret in your Azure KeyVault. By iterating over the returned object and stopping after the first two iterations, you can obtain the two latest versions of the secret. Note that these versions are returned in the order they were created, with the latest version first. You will need to integrate this logic into your existing KeyVault retrieval code, ensuring that your application is capable of fetching and potentially using both of these versions of the secret. Please ensure that the Azure account you use has the necessary permissions to list and get secrets from your Azure KeyVault. This approach allows for greater flexibility and control over your application's secret management.
+### Retrieve multiple versions from Key Vault to reduce downtime
+To implement the retrieval of the two latest versions of a secret from Azure KeyVault, you will need to utilize the `list_properties_of_secret_versions` method provided by the Azure SDK. This method returns an iterator over the versions of a secret in your Azure KeyVault. By iterating over the returned object and stopping after the first two iterations, you can obtain the two latest versions of the secret. Note that these versions are returned in the order they were created, with the latest version first. You will need to integrate this logic into your existing KeyVault retrieval code, ensuring that your application is capable of fetching and potentially using both of these versions of the secret. Please ensure that the Azure account you use has the necessary permissions to list and get secrets from your Azure Key Vault. This approach allows for greater flexibility and control over your application's secret management.
+
+### Logging 
+To view the best possible logs for this sample, it is highly encouraged to enable the Key Vault Diagnostic settings to show "audit","allLogs", and "AllMetrics" and send them to a log analtics workspace to view the Key Vault events.
+
+This sample contains the latest tracing enabled in the Program.cs file, this code will allow you to see the logging information from the Function in the Function's trace logs.
 
 ## Limitations
 
 ### Testing Key Vault for Expired and Near Expired Secrets
-Testing this feature can come with long wait times, on average the "Microsoft.KeyVault.SecretNearExpiry" and "Microsoft.KeyVault.SecretExpired" can come to the Event Grid on average around ~45 mins to 1.3 hours. For testing purposes "Microsoft.KeyVault.SecretNewVersionCreated" event comes instantanously when creating a new secret to the Event Grid, the code can be modified to accept this event to test that everything is configured properly. 
+Testing this feature can come with long wait times, on average the "Microsoft.KeyVault.SecretNearExpiry" and "Microsoft.KeyVault.SecretExpired" can come to the Event Grid on average around ~45 mins to 1.3 hours. For testing purposes "Microsoft.KeyVault.SecretNewVersionCreated" event comes instantanously when creating a new secret to the Key Vault, the code can be modified to accept this event to test that everything is configured properly. 
 
 ### App Registration
  If you have an app registration configured to support personal account login, you can only create two client secrets at most. If your application only supports work account login, there will be no limit to the number of client secrets created. With the scenatio of personal account, you need to add custom logic to delete the oldest secret.
