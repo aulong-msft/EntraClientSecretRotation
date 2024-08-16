@@ -2,7 +2,7 @@
 
 This project demonstrates how to interact with Azure Key Vault and Microsoft Graph to manage secrets and application registration client secrets.
 
-##Architecture
+## Architecture
 
 This project demonstrates how to interact with Azure Key Vault and Microsoft Graph to manage secrets and application registration client secrets.
 
@@ -29,10 +29,16 @@ Rotating client secrets for an Entra application registration can present a sign
 ### Set up the Key Vault Event Grid Trigger
 
 ### Create a System Assigned Managed Identity in the Function
+After you have created the Azure Function, Naviagate to "Settings" -> "Identity" and turn on the System Assigned Managed Identity.This will the be identity the DefaultAzureCredential will use within the Function program. *Please note that user assigned managed identities will not work with this setup*.
 
 ### Assign Azure + Entra RBAC to the System Assigned Managed Identity
 
+#### Azure RBAC
+The Following least priviledges Azure RBAC roles are needed for the system assigned managed identity to both interact with Secrets within the KeyVault and to read and write to the Event Grid
+- "Key Vault Secrets Officer"
+- "EventGrid Contributor"
 
+#### Entra RBAC
 
 ## Considerations
 
