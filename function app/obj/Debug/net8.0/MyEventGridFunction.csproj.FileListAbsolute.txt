@@ -1,6 +1,0 @@
-C:\Users\aulong\GitHub_Projects\EntraClientSecretRotation\function app\obj\Debug\net8.0\MyEventGridFunction.csproj.AssemblyReference.cache
-C:\Users\aulong\GitHub_Projects\EntraClientSecretRotation\function app\obj\Debug\net8.0\MyEventGridFunction.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\aulong\GitHub_Projects\EntraClientSecretRotation\function app\obj\Debug\net8.0\MyEventGridFunction.AssemblyInfoInputs.cache
-C:\Users\aulong\GitHub_Projects\EntraClientSecretRotation\function app\obj\Debug\net8.0\MyEventGridFunction.AssemblyInfo.cs
-C:\Users\aulong\GitHub_Projects\EntraClientSecretRotation\function app\obj\Debug\net8.0\MyEventGridFunction.csproj.CoreCompileInputs.cache
-C:\Users\aulong\GitHub_Projects\EntraClientSecretRotation\function app\obj\Debug\net8.0\MyEventGridFunction.sourcelink.json
