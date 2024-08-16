@@ -44,7 +44,7 @@ Since this program create a new Application Registration Client Secret, we will 
 
 ## Considerations
 
-## Clean Up Old Secrets
+### Clean Up Old Secrets
 This program does not delete or disable secrets or older versions of secrets in the Key Vault or in Entra, management of this should be considered.
 
 ### Key Vault Secrets Versions Lifecycle
@@ -60,12 +60,15 @@ To view the best possible logs for this sample, it is highly encouraged to enabl
 
 This sample contains the latest tracing enabled in the Program.cs file, this code will allow you to see the logging information from the Function in the Function's trace logs.
 
+### Testing
+An HTTP trigger function is also provided in this sample code, this is a good way to test the environment and RBAC conditions before jumping in and testing the Event Grid scenario. 
+
+For testing purposes:  "Microsoft.KeyVault.SecretNewVersionCreated" event comes instantanously when creating a new secret to the Key Vault, the code can be modified to accept this event to test that everything is configured properly. However, please keep in mind this code creates new secrets, so this will fire a lot, modifications will be needed so you dont create too many secrets in Entra and in Key Vault for testing purposes. 
+
 ## Limitations
 
 ### Testing Key Vault for Expired and Near Expired Secrets
 Testing this feature can come with long wait times, on average the "Microsoft.KeyVault.SecretNearExpiry" and "Microsoft.KeyVault.SecretExpired" can come to the Event Grid on average around ~45 mins to 1.3 hours. 
-
-For testing purposes "Microsoft.KeyVault.SecretNewVersionCreated" event comes instantanously when creating a new secret to the Key Vault, the code can be modified to accept this event to test that everything is configured properly. However, please keep in mind this code creates new secrets, so this will fire a lot, modifications will be needed so you dont create too many secrets in Entra and in Key Vault for testing purposes.
 
 ### App Registration
  If you have an app registration configured to support personal account login, you can only create two client secrets at most. If your application only supports work account login, there will be no limit to the number of client secrets created. With the scenario of personal account, you need to add custom logic to delete the oldest secret.
