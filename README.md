@@ -22,6 +22,7 @@ Rotating client secrets for an Entra application registration can present a sign
 - Managed identity with access to Key Vault and Microsoft Graph
 
 ### Set up an Event Grid Triggered Azure Function
+This sample setsup a C# dotnet-isolated Event grid triggered function. Please reference [Azure Functions Guidance](https://learn.microsoft.com/en-us/azure/azure-functions/functions-create-function-app-portal?pivots=programming-language-csharp)
 
 ### Set up the Key Vault Event Grid Trigger
 
