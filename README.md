@@ -38,9 +38,11 @@ After you have created the Azure Function, Naviagate to "Settings" -> "Identity"
 The Following least priviledges Azure RBAC roles are needed for the system assigned managed identity to both interact with Secrets within the KeyVault and to read and write to the Event Grid
 - "Key Vault Secrets Officer"
 - "EventGrid Contributor"
+![Architecture Diagram](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/azurerole.jpg)
 
 #### Entra RBAC
-Since this program create a new Application Registration Client Secret, we will also need a higher priviledge role in Entra.
+Since this program create a new Application Registration Client Secret, we will also need a higher priviledge role in Entra. Navigate to Entra -> "All Roles" and click on "Cloud Application Administrator" and assign the System Assigned Managed Identity here.
+![Architecture Diagram](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/entrarole.jpg)
 
 ## Considerations
 
