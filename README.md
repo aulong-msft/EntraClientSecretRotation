@@ -25,7 +25,8 @@ Rotating client secrets for an Entra application registration can present a sign
 This sample setsup a C# dotnet-isolated Event grid triggered function. Please reference [Azure Functions Guidance](https://learn.microsoft.com/en-us/azure/azure-functions/functions-create-function-app-portal?pivots=programming-language-csharp) on creating your Azure Function.
 
 ### Set up the Key Vault Event Grid Trigger
-
+In the Key Vault service navigate to "Events" and create a new "Event Subscription"
+Please refer to the [Key Vault Schema](https://learn.microsoft.com/en-us/azure/event-grid/event-schema-key-vault?tabs=cloud-event-schema) to see the possible events that can be listen for on the Event Grid.
 
 ### Create a System Assigned Managed Identity in the Function
 After you have created the Azure Function, Naviagate to "Settings" -> "Identity" and turn on the System Assigned Managed Identity.This will the be identity the DefaultAzureCredential will use within the Function program. 
