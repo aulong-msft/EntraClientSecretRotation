@@ -38,7 +38,6 @@ namespace Company.Function
             _logger.LogInformation(JsonSerializer.Serialize(input.Data));
 
             // Retrieve the environment variables
-
             string secretName = Environment.GetEnvironmentVariable("SecretName");
             string objectId = Environment.GetEnvironmentVariable("EntraObjectID");
             string keyVaultUri = Environment.GetEnvironmentVariable("KeyVaultURI");
@@ -65,10 +64,7 @@ namespace Company.Function
                 {
                     var credential = new DefaultAzureCredential();
                     var graphClient = new GraphServiceClient(credential);
-                    await CreateNewSecret(graphClient, secretName, objectId);
-                    await AddSecretToKeyVault(credential, keyVaultUri);
-
-                    _logger.LogInformation("Secret rotation completed successfully.");
+                    await CreateNewSecret(graphClient, secretName, objectId, credential, keyVaultUri);
                 }
                 catch (Exception ex)
                 {
@@ -79,7 +75,7 @@ namespace Company.Function
             return new OkResult();
         }
 
-        private async Task CreateNewSecret(GraphServiceClient graphClient, string secretName, string objectId)
+        private async Task CreateNewSecret(GraphServiceClient graphClient, string secretName, string objectId, DefaultAzureCredential credential, string keyVaultUri)
         {
             var requestBody = new AddPasswordPostRequestBody
             {
@@ -96,6 +92,7 @@ namespace Company.Function
                 if (result != null && !string.IsNullOrEmpty(result.SecretText))
                 {
                     newClientSecret = result.SecretText;
+                    await AddSecretToKeyVault(credential, keyVaultUri, secretName);
                 }
                 else
                 {
@@ -108,11 +105,11 @@ namespace Company.Function
             }
         }
 
-        private async Task AddSecretToKeyVault(DefaultAzureCredential credential, string keyVaultUri)
+        private async Task AddSecretToKeyVault(DefaultAzureCredential credential, string keyVaultUri, string SecretName)
         {
             var secretClient = new SecretClient(new Uri(keyVaultUri), credential);
 
-            var updateSecret = new KeyVaultSecret("entraSecret", newClientSecret)
+            var updateSecret = new KeyVaultSecret(SecretName, newClientSecret)
             {
                 Properties = { ExpiresOn = DateTimeOffset.UtcNow.AddMonths(6) }
             };
