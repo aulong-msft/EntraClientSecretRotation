@@ -22,12 +22,14 @@ Rotating client secrets for an Entra application registration can present a sign
 - Managed identity with access to Key Vault and Microsoft Graph
 
 ### Set up an Event Grid Triggered Azure Function
-This sample setsup a C# dotnet-isolated Event grid triggered function. Please reference [Azure Functions Guidance](https://learn.microsoft.com/en-us/azure/azure-functions/functions-create-function-app-portal?pivots=programming-language-csharp)
+This sample setsup a C# dotnet-isolated Event grid triggered function. Please reference [Azure Functions Guidance](https://learn.microsoft.com/en-us/azure/azure-functions/functions-create-function-app-portal?pivots=programming-language-csharp) on creating your Azure Function.
 
 ### Set up the Key Vault Event Grid Trigger
 
+
 ### Create a System Assigned Managed Identity in the Function
-After you have created the Azure Function, Naviagate to "Settings" -> "Identity" and turn on the System Assigned Managed Identity.This will the be identity the DefaultAzureCredential will use within the Function program. *Please note that user assigned managed identities will not work with this setup*.
+After you have created the Azure Function, Naviagate to "Settings" -> "Identity" and turn on the System Assigned Managed Identity.This will the be identity the DefaultAzureCredential will use within the Function program. 
+*Please note that user assigned managed identities will not work with this setup*.
 
 ### Assign Azure + Entra RBAC to the System Assigned Managed Identity
 
