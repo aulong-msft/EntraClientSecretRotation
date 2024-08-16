@@ -59,9 +59,11 @@ This sample contains the latest tracing enabled in the Program.cs file, this cod
 ## Limitations
 
 ### Testing Key Vault for Expired and Near Expired Secrets
-Testing this feature can come with long wait times, on average the "Microsoft.KeyVault.SecretNearExpiry" and "Microsoft.KeyVault.SecretExpired" can come to the Event Grid on average around ~45 mins to 1.3 hours. For testing purposes "Microsoft.KeyVault.SecretNewVersionCreated" event comes instantanously when creating a new secret to the Key Vault, the code can be modified to accept this event to test that everything is configured properly. 
+Testing this feature can come with long wait times, on average the "Microsoft.KeyVault.SecretNearExpiry" and "Microsoft.KeyVault.SecretExpired" can come to the Event Grid on average around ~45 mins to 1.3 hours. 
+
+For testing purposes "Microsoft.KeyVault.SecretNewVersionCreated" event comes instantanously when creating a new secret to the Key Vault, the code can be modified to accept this event to test that everything is configured properly. However, please keep in mind this code creates new secrets, so this will fire a lot.
 
 ### App Registration
  If you have an app registration configured to support personal account login, you can only create two client secrets at most. If your application only supports work account login, there will be no limit to the number of client secrets created. With the scenatio of personal account, you need to add custom logic to delete the oldest secret.
 
-If you run into Entra errors, please consider these existing [Service Limitations](https://learn.microsoft.com/en-us/entra/identity/users/directory-service-limits-restrictions#:%7E:text=A%20user%20can%20have%20credentials%20configured%20for%20a%20maximum%20of%2048%20apps%20using%20password%2Dbased%20single%20sign%2Don.%20This)
+If you run into the follwing Entra error "Error creating app registration secret: Server admin limit exceeded" , please consider these existing [Service Limitations](https://learn.microsoft.com/en-us/entra/identity/users/directory-service-limits-restrictions#:%7E:text=A%20user%20can%20have%20credentials%20configured%20for%20a%20maximum%20of%2048%20apps%20using%20password%2Dbased%20single%20sign%2Don.%20This)
