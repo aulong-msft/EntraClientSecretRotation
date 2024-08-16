@@ -4,9 +4,6 @@ This project demonstrates how to interact with Azure Key Vault and Microsoft Gra
 
 ## Architecture
 
-This project demonstrates how to interact with Azure Key Vault and Microsoft Graph to manage secrets and application registration client secrets.
-
-## Architecture
 ![Architecture Diagram](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/architecture.jpg)
 
 ## Overview
