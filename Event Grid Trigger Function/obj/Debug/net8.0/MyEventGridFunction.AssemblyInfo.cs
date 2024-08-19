@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyEventGridFunction")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9fc342e9c1f389df917ba0286fd2289073d0b0cd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a5c16901f3e3ff955161f07f054f57aad0d151d6")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyEventGridFunction")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyEventGridFunction")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
