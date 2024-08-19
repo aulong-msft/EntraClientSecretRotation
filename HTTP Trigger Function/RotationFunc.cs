@@ -1,6 +1,3 @@
-// This is a sample HTTP test function, to use update the objectID from Entra, and the Key Vault URI
-// Ensure to change the file type to active the function
-
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.Azure.Functions.Worker;
@@ -28,10 +25,14 @@ namespace function
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
+            string keyVaultUri = Environment.GetEnvironmentVariable("KeyVaultURI");
+            string appRegistrationObjectId = Environment.GetEnvironmentVariable("EntraObjectID");
+            string secretName = Environment.GetEnvironmentVariable("SecretName");
+
             var credential = GetCredential();
             var graphClient = new GraphServiceClient(credential);
-            await CreateNewSecret(graphClient);
-            await AddSecretToKeyVault(credential);
+            await CreateNewSecret(graphClient, appRegistrationObjectId, secretName);
+            await AddSecretToKeyVault(credential, keyVaultUri, secretName);
 
             return new OkObjectResult("Welcome to Azure Functions!");
         }
@@ -58,20 +59,20 @@ namespace function
             return new DefaultAzureCredential(options);
         }
 
-        private async Task CreateNewSecret(GraphServiceClient graphClient)
+        private async Task CreateNewSecret(GraphServiceClient graphClient, string appRegistrationObjectId, string secretName)
         {
             var requestBody = new AddPasswordPostRequestBody
             {
                 PasswordCredential = new PasswordCredential
                 {
-                    DisplayName = "entraSecret",
+                    DisplayName = secretName,
                     EndDateTime = DateTimeOffset.UtcNow.AddMonths(6), // MSFT recommended rotation time
                 },
             };
 
             try
             {
-                var result = await graphClient.Applications["YOUR ENTRA APP REGISTRATION OBJECT ID"].AddPassword.PostAsync(requestBody);
+                var result = await graphClient.Applications[appRegistrationObjectId].AddPassword.PostAsync(requestBody);
                 if (result != null && !string.IsNullOrEmpty(result.SecretText))
                 {
                     newClientSecret = result.SecretText;
@@ -89,7 +90,7 @@ namespace function
             }
         }
 
-        private async Task AddSecretToKeyVault(DefaultAzureCredential credential)
+        private async Task AddSecretToKeyVault(DefaultAzureCredential credential, string keyVaultUri, string secretName)
         {
             if (string.IsNullOrEmpty(newClientSecret))
             {
@@ -97,9 +98,9 @@ namespace function
                 throw new Exception("New client secret is empty. Cannot add to Key Vault.");
             }
 
-            var secretClient = new SecretClient(new Uri("YOUR KEYVAULT URI"), credential);
+            var secretClient = new SecretClient(new Uri(keyVaultUri), credential);
 
-            KeyVaultSecret updateSecret = new KeyVaultSecret("entraSecret", newClientSecret);
+            KeyVaultSecret updateSecret = new KeyVaultSecret(secretName, newClientSecret);
             SecretProperties secretProperties = updateSecret.Properties;
             secretProperties.ExpiresOn = DateTimeOffset.UtcNow.AddMonths(6);
 
