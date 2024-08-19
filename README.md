@@ -45,7 +45,7 @@ After you have created the Azure Function, navigate to “Settings” -> “Iden
 ### Assign Azure + Entra RBAC to the System Assigned Managed Identity
 
 #### Azure RBAC
-The following least privileges Azure RBAC roles are needed for the system assigned managed identity to both interact with Secrets within the Key Vault and to read and write to the Event Grid:
+Assign the following least privileges Azure RBAC roles are needed for the system assigned managed identity to both interact with Secrets within the Key Vault and to read and write to the Event Grid:
 - "Key Vault Secrets Officer"
 - "EventGrid Contributor"
 
