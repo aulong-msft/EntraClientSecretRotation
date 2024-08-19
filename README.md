@@ -77,7 +77,7 @@ This sample contains the latest tracing enabled in the Program.cs file, this cod
 ### Testing
 An HTTP trigger function is also provided in this sample code, this is a good way to test the environment and RBAC conditions before jumping in and testing the Event Grid scenario.
 
-For Event Grid Trigger testing purposes: `Microsoft.KeyVault.SecretNewVersionCreated` event comes instantaneously when creating a new secret to the Key Vault, the code can be modified to accept this event to test that everything is configured properly. However, please keep in mind this code creates new secrets, so this will fire a lot, modifications will be needed so you don’t create too many secrets in Entra and in Key Vault for testing purposes.
+For Event Grid trigger testing purposes: `Microsoft.KeyVault.SecretNewVersionCreated` event comes instantaneously when creating a new secret to the Key Vault, the code can be modified to accept this event to test that everything is configured properly. However, please keep in mind this code creates new secrets, so this will fire a lot, modifications will be needed so you don’t create too many secrets in Entra and in Key Vault for testing purposes.
 
 ## Limitations
 
