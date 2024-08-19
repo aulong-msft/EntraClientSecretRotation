@@ -17,7 +17,7 @@ This program addresses these challenges by automating the process of rotating th
 
 ## Set up
 - .NET SDK installed
-- Azure subscription
+- Azure Subscription
 - Azure Function Event Grid Triggered Function
 - Azure Key Vault
 - Azure Key Vault Event Setup for Exipred and Near Expired Secrets
