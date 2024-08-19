@@ -68,7 +68,7 @@ To implement the retrieval of the two latest versions of a secret from Azure Key
 Please ensure that the Azure account you use has the necessary permissions to list and get secrets from your Azure Key Vault. This approach allows for greater flexibility and control over your application’s secret management.
 
 ### Logging 
-To view the best possible logs for this sample, it is highly encouraged to enable the Key Vault Diagnostic settings to show “audit”, “allLogs”, and “AllMetrics” and send them to a log analytics workspace to view the Key Vault events.
+To view the best possible logs for this sample, it is highly encouraged to enable the Key Vault Diagnostic settings to show “Audit”, “All Logs”, and “All Metrics” and send them to a log analytics workspace to view the Key Vault events.
 
 ![Key Vault Diagnostics](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/diagnostics.jpg)
 
