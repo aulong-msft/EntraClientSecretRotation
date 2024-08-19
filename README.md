@@ -32,7 +32,7 @@ In the Key Vault service navigate to “Events” and create a new “Event Subs
 
 ![Event Grid Setup](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/eventtypes.jpg)
 
-Ensure you have seleted the Microsoft.KeyVault.SecretNearExpiry` and `Microsoft.KeyVault.SecretExpired` events, and the endpoint consuming these events is the Function created in the earlier step.
+Ensure you have seleted the `Microsoft.KeyVault.SecretNearExpiry` and `Microsoft.KeyVault.SecretExpired` events, and the endpoint consuming these events is the Function created in the earlier step.
 
 ![Event Grid Setup](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/CreateEventGrid.jpg)
 
