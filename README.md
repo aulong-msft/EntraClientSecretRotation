@@ -30,6 +30,13 @@ This sample sets up a C# dotnet-isolated Event grid triggered function. Please r
 ### Set up the Key Vault Event Grid Trigger
 In the Key Vault service navigate to “Events” and create a new “Event Subscription” Please refer to the [Key Vault Schema](https://learn.microsoft.com/en-us/azure/event-grid/event-schema-key-vault?tabs=cloud-event-schema) to see the possible events that can be listened for on the Event Grid.
 
+![Event Grid Setup](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/eventtypes.jpg)
+
+Ensure you have seleted the Microsoft.KeyVault.SecretNearExpiry` and `Microsoft.KeyVault.SecretExpired` events, and the endpoint consuming these events is the Function created in the earlier step.
+
+![Event Grid Setup](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/CreateEventGrid.jpg)
+
+
 ### Create a System Assigned Managed Identity in the Function
 After you have created the Azure Function, navigate to “Settings” -> “Identity” and turn on the System Assigned Managed Identity. This will be the identity the DefaultAzureCredential will use within the Function program. *Please note that user assigned managed identities will not work with this setup.*
 
@@ -39,11 +46,13 @@ After you have created the Azure Function, navigate to “Settings” -> “Iden
 The following least privileges Azure RBAC roles are needed for the system assigned managed identity to both interact with Secrets within the KeyVault and to read and write to the Event Grid:
 - "Key Vault Secrets Officer"
 - "EventGrid Contributor"
-![Architecture Diagram](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/azurerole.jpg)
+
+![Azure Roles](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/azurerole.jpg)
 
 #### Entra RBAC
 Since this program creates a new Application Registration Client Secret, we will also need a higher privilege role in Entra. Navigate to Entra -> “All Roles” and click on “Cloud Application Administrator” and assign the System Assigned Managed Identity here.
-![Architecture Diagram](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/entrarole.jpg)
+
+![Entra Role](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/entrarole.jpg)
 
 ## Considerations
 
@@ -60,6 +69,8 @@ Please ensure that the Azure account you use has the necessary permissions to li
 
 ### Logging 
 To view the best possible logs for this sample, it is highly encouraged to enable the Key Vault Diagnostic settings to show “audit”, “allLogs”, and “AllMetrics” and send them to a log analytics workspace to view the Key Vault events.
+
+![Key Vault Diagnostics](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/diagnostics.jpg)
 
 This sample contains the latest tracing enabled in the Program.cs file, this code will allow you to see the logging information from the Function in the Function’s trace logs.
 
