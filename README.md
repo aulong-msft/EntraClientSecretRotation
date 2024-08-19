@@ -40,6 +40,8 @@ Ensure you have seleted the `Microsoft.KeyVault.SecretNearExpiry` and `Microsoft
 ### Create a System Assigned Managed Identity in the Function
 After you have created the Azure Function, navigate to “Settings” -> “Identity” and turn on the System Assigned Managed Identity. This will be the identity the DefaultAzureCredential will use within the Function program. *Please note that user assigned managed identities will not work with this setup.*
 
+![System Assigned Managed Identity](https://github.com/aulong-msft/EntraClientSecretRotation/blob/main/pictures/identity.jpg)
+
 ### Assign Azure + Entra RBAC to the System Assigned Managed Identity
 
 #### Azure RBAC
