@@ -81,6 +81,9 @@ An HTTP trigger function is also provided in this sample code, this is a good wa
 
 For Event Grid trigger testing purposes: `Microsoft.KeyVault.SecretNewVersionCreated` event comes instantaneously when creating a new secret to the Key Vault, the code can be modified to accept this event to test that everything is configured properly. However, please keep in mind this code creates new secrets, so this will fire a lot, modifications will be needed so you don’t create too many secrets in Entra and in Key Vault for testing purposes.
 
+### Security
+This solution uses system assigned managed identities throughout the solution. However, this sample can be more secure by implementing virtual networks and rule sets to disallow public traffic. 
+
 ## Limitations
 
 ### Testing Key Vault for Expired and Near Expired Secrets
